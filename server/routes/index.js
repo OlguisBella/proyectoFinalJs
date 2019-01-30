@@ -30,8 +30,14 @@ module.exports = (app) => {
 
   //PUT update
   app.put('/api/avatar/:avatarId', avatarController.update);
-  //app.put('/api/jugador/:jugadorId', jugadorController.update);
+  app.put('/api/jugador/:jugadorId', jugadorController.update);
   app.put('/api/carta/:cartaId', cartaController.update);
   app.put('/api/user/:userId', userController.update);
+
+  //DELETE one element
+  app.delete('/api/avatar/:avatarId', avatarController.destroy);
+  app.delete('/api/jugador/:jugadorId', jugadorController.destroy);
+  app.delete('/api/carta/:cartaId', cartaController.destroy);
+  app.delete('/api/user/:userId', userController.destroy);
 
 };

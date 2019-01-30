@@ -48,4 +48,20 @@ module.exports = {
       })
       .catch((error) => res.status(400).send(error));
   },
+  destroy(req, res) {
+    return Carta
+      .findById(req.params.cartaId)
+      .then(carta => {
+        if (!carta) {
+          return res.status(400).send({
+            message: 'Carta No Encontrada',
+          });
+        }
+        return carta
+          .destroy()
+          .then(() => res.status(204).send())
+          .catch(error => res.status(400).send(error));
+      })
+      .catch(error => res.status(400).send(error));
+  },
 };

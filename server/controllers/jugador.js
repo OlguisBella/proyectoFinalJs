@@ -38,4 +38,40 @@ module.exports = {
       })
       .catch(error => res.status(400).send(error));
   },
+  update(req, res) {
+    return Jugador
+      .findById(req.params.jugadorId)
+      .then(jugador => {
+        if (!jugador) {
+          return res.status(404).send({
+            message: 'Jugador No Encontrado',
+          });
+        }
+  
+        return jugador
+          .update({
+            puntaje: req.body.puntaje || jugador.puntaje,
+          })
+          .then(updatedJugador => res.status(200).send(updatedJugador))
+          .catch(error => res.status(400).send(error));
+      })
+      .catch(error => res.status(400).send(error));
+  },
+  destroy(req, res) {
+    return Jugador
+      .findById(req.params.jugadorId)
+      .then(jugador => {
+        if (!jugador) {
+          return res.status(404).send({
+            message: 'Jugador No Encontrado',
+          });
+        }
+  
+        return jugador
+          .destroy()
+          .then(() => res.status(204).send())
+          .catch(error => res.status(400).send(error));
+      })
+      .catch(error => res.status(400).send(error));
+  },
 };

@@ -56,12 +56,28 @@ module.exports = {
         }
         return avatar
           .update({
-            nombre: req.body.nombre || todo.nombre,
+            nombre: req.body.nombre || todo.nombre, //o el nombre nuevo o el determinado
             url: req.body.url || todo.url,
           })
           .then(() => res.status(200).send(avatar))  // Send back the updated avatar.
           .catch((error) => res.status(400).send(error));
       })
       .catch((error) => res.status(400).send(error));
+  },
+  destroy(req, res) {
+    return Avatar
+      .findById(req.params.avatarId)
+      .then(avatar => {
+        if (!avatar) {
+          return res.status(400).send({
+            message: 'Avatar No Encontrado',
+          });
+        }
+        return avatar
+          .destroy()
+          .then(() => res.status(204).send())
+          .catch(error => res.status(400).send(error));
+      })
+      .catch(error => res.status(400).send(error));
   },
 };
