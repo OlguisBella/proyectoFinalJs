@@ -8,9 +8,30 @@ module.exports = (app) => {
     message: 'Welcome to the API!',
   }));
 
+  //POST create
   app.post('/api/avatars', avatarController.create);
   app.post('/api/jugadores', jugadorController.create);
   app.post('/api/cartas', cartaController.create);
   app.post('/api/users', userController.create);
+
+  //GET list
+  app.get('/api/avatars', avatarController.list);
+  app.get('/api/jugadores', jugadorController.list);
+  app.get('/api/cartas', cartaController.list);
+  app.get('/api/users', userController.list);
+
+  app.post('/api/jugadores/:avatarId/avatar', jugadorController.create);
+
+  //GET one element
+  app.get('/api/avatar/:avatarId', avatarController.retrieve);
+  app.get('/api/jugador/:jugadorId', jugadorController.retrieve);
+  app.get('/api/carta/:cartaId', cartaController.retrieve);
+  app.get('/api/user/:userId', userController.retrieve);
+
+  //PUT update
+  app.put('/api/avatar/:avatarId', avatarController.update);
+  //app.put('/api/jugador/:jugadorId', jugadorController.update);
+  app.put('/api/carta/:cartaId', cartaController.update);
+  app.put('/api/user/:userId', userController.update);
 
 };
