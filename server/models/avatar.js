@@ -8,6 +8,8 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+  }, {
+    freezeTableName: true
   });
 
   Avatar.associate = (models) => {

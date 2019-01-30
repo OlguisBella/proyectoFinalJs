@@ -1,10 +1,16 @@
-'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Carta = sequelize.define('Carta', {
-    title: DataTypes.STRING
-  }, {});
-  Carta.associate = function(models) {
-    // associations can be defined here
-  };
+    nombre: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    url: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+  }, {
+    freezeTableName: true
+  });
+
   return Carta;
 };
