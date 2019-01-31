@@ -5,9 +5,6 @@ var gameRouter = require('./server/routes/game');
 var createError = require('http-errors');
 var path = require('path');
 
-var formidable = require('express-form-data');
-
-
 // Set up the express app
 const app = express();
 
@@ -17,10 +14,6 @@ app.use(logger('dev'));
 // Parse incoming requests data (https://github.com/expressjs/body-parser)
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
-
-app.use(formidable.parse({ keepExtensions: true, uploadDir:"server/public/images/ANIMALITOS" }));
-
 
 // Require our routes into the application.
 require('./server/routes')(app);
