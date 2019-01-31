@@ -17,4 +17,7 @@ router.get('/admin', function(req, res, next) {
   res.render('admin', {page:'Administrador', menuId:'admin'});
 });
 
+//Para las imagenes
+
+
 module.exports = router;
