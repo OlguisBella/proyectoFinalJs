@@ -4,10 +4,9 @@ const bodyParser = require('body-parser');
 var gameRouter = require('./server/routes/game');
 var createError = require('http-errors');
 var path = require('path');
-<<<<<<< HEAD
+
 var formidable = require('express-form-data');
-=======
->>>>>>> 88b9090a2d553778c81f64d39cb6bf8ce8f541f1
+
 
 // Set up the express app
 const app = express();
@@ -18,11 +17,10 @@ app.use(logger('dev'));
 // Parse incoming requests data (https://github.com/expressjs/body-parser)
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-<<<<<<< HEAD
+
 
 app.use(formidable.parse({ keepExtensions: true, uploadDir:"server/public/images/ANIMALITOS" }));
-=======
->>>>>>> 88b9090a2d553778c81f64d39cb6bf8ce8f541f1
+
 
 // Require our routes into the application.
 require('./server/routes')(app);
