@@ -3,6 +3,7 @@ const Avatar = require('../models').Avatar;
 
 module.exports = {
   create(req, res) {
+    console.log(req.body)
     return Jugador
       .create({
         puntaje: req.body.puntaje,

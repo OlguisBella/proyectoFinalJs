@@ -132,7 +132,7 @@ function aparecerPopup() {
 
 function aparecerPopupWinner() {
     //Guardar puntaje
-    var dataJugador = {puntaje: puntaje, avatarId: idAvatar};
+    var dataJugador = {puntaje: puntaje, avatarId: avatars[idAvatar].id};
     /*$.ajax({
         url: '/api/jugadores',
         method: 'post',
