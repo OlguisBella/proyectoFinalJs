@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html class="no-js">
+
+<head>
+  <% include partials/head %>
+</head>
+
+<body id="imgFondo">
+
+  <!--Logo-->
+  <% include partials/menu %>
+
+  <audio src="audio/comenzar.mp3" autoplay type="audio/mpeg"></audio>
+
+
+  <!-- Pop up para el video tutorial-->
+  <div id="mpopupBox" class="mpopup">
+    <div class="mpopup-content">
+      <div class="mpopup-head">
+        <span class="close">×</span>
+        <h2 class="text-center" id="#intro-page-title">Instrucciones</h2>
+      </div>
+      <div class="embed-responsive embed-responsive-16by9">
+        <iframe class="embed-responsive-item" width="560" height="315" src="https://www.youtube.com/embed/B3amtp5HtVA"
+          frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen></iframe>
+        <!--iframe class="embed-responsive-item" src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0" allowfullscreen></iframe-->
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- Pop up para puntaje-->
+  <div id="popwinner" class="mpopup">
+
+    <div class="mpopup-content">
+      <div class="mpopup-head">
+        <span class="close">×</span>
+        <h2 class="text-center">¡Ganaste!</h2>
+      </div>
+
+      <div class="embed-responsive embed-responsive-16by9">
+        <div id="ubiPremioTitulo">
+          <center>
+            <h3>Retira tu premio</h3>
+            <h5 id="conPuntaje"></h5>
+          </center>
+          <center><img id="imgFondoGanador" src="images/ROTULOS/EXPECTATIVAPUNTAJE.png"></center>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- sección de intro-->
+
+  <section id="seccionIntro">
+    <center>
+      <img class="img-fluid" src="images/ROTULOS/DOMESTICOS.png" id="tituloIntro">
+      <a href="#"><img class="img-fluid" src="images/BOTONES/INICIAR.png" id="btnIniciar"></a>
+    </center>
+    <div class="row animalitos">
+
+      <div class="col">
+        <img class="img-fluid animalDom float-right" src="images/ANIMALITOS/conejo.png">
+      </div>
+
+      <div class="col">
+        <img class="img-fluid animalDom float-left" src="images/ANIMALITOS/gallito.png">
+      </div>
+
+      <div class="col">
+        <img class="img-fluid animalDom float-right" src="images/ANIMALITOS/gatito.png">
+      </div>
+
+      <div class="col">
+        <img class="img-fluid animalDom float-left" src="images/ANIMALITOS/cerdito.png">
+      </div>
+
+      <div class="col">
+        <img class="img-fluid animalDom float-right" src="images/ANIMALITOS/pollito.png">
+      </div>
+
+      <div class="col">
+        <img class="img-fluid animalDom float-left" src="images/ANIMALITOS/perrito.png">
+      </div>
+
+    </div>
+  </section>
+
+  <section id="seccionAvatar">
+    <center>
+
+      <img class="img-fluid tituloAvatar" src="images/ROTULOS/PERSONAJE.png" id="AvatarTitulo">
+      <img class="img-fluid" src="images/ROTULOS/n1.png" id="imgN1">
+      <img class="img-fluid" src="images/ROTULOS/n2.png" id="imgN2">
+      <img class="img-fluid" src="images/ROTULOS/n3.png" id="imgN3">
+      <img class="img-fluid" src="images/ROTULOS/NIVELES.png" id="imgN1">
+
+      <div class="row">
+
+        <div class="col-md-12 col-sm-12">
+          <a href="#"><img src="images/AVATAR/niñaAv1.png" class="img-responsive avatar"></a>
+          <a href="#"><img src="images/AVATAR/niñaAv2.png" class="img-responsive avatar"></a>
+          <a href="#"><img src="images/AVATAR/niñaAv3.png" class="img-responsive avatar"></a>
+        </div>
+
+        <div class="col-md-12 col-sm-12">
+          <a href="#"><img src="images/AVATAR/niñoAv1.png" class="img-responsive avatar"></a>
+          <a href="#"><img src="images/AVATAR/niñoAv2.png" class="img-responsive avatar"></a>
+          <a href="#"><img src="images/AVATAR/niñoAv3.png" class="img-responsive avatar"></a>
+        </div><br>
+      </div>
+
+      <!--Juego-->
+      <div class="clearfix"></div>
+      <div class="">
+        <div class="container">
+          <div id="picbox" class="row mx-auto center-block mt-15 pt-5">
+            <span id="boxbuttons">
+              <span class="button">
+                <span id="counter">0</span>
+                Clicks
+              </span>
+              <span class="button">
+                <span id="puntaje">0</span>
+                Puntaje
+              </span>
+              <span class="button">
+                <a onclick="ResetGame();">Reiniciar</a>
+              </span>
+            </span>
+            <div id="boxcard"></div>
+          </div>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+    </center>
+  </section>
+
+
+
+  <!-- Audios -->
+
+
+
+  <% include partials/scripts %>
+</body>
+
+</html>
