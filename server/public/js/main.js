@@ -9,6 +9,7 @@ var ImgSource = [];
 var ImgSource2 = [];
 var ImgSource3 = [];
 var avatars = [];
+var idAvatar;
 
 
 $(document).ready(function () {
@@ -25,7 +26,9 @@ $(document).ready(function () {
         dataType: 'json',
         success: function (data) {
             animalitos = data;
-            animalitos.sort(function(a, b){return 0.5 - Math.random()});
+            animalitos.sort(function (a, b) {
+                return 0.5 - Math.random()
+            });
             for (let i = 0; i < 2; i++) ImgSource.push(animalitos[i].url);
             for (let i = 0; i < 3; i++) ImgSource2.push(animalitos[i].url);
             for (let i = 0; i < 4; i++) ImgSource3.push(animalitos[i].url);
@@ -60,7 +63,7 @@ $(document).ready(function () {
     $(".avatar").each(function (index) {
 
         $(this).on("click", function () {
-
+            idAvatar = index;
             $("#imgN1").fadeIn();
 
 
@@ -128,6 +131,27 @@ function aparecerPopup() {
 }
 
 function aparecerPopupWinner() {
+    //Guardar puntaje
+    var dataJugador = {puntaje: puntaje, avatarId: idAvatar};
+    /*$.ajax({
+        url: '/api/jugadores',
+        method: 'post',
+        data: {
+            puntaje: puntaje,
+            avatarId: idAvatar
+        },
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (data) {
+            console.log(data);
+        },
+    });*/
+
+    $.post('/api/jugadores', dataJugador,
+        function (data, status) {
+            console.log("Data: " + data + "\nStatus: " + status);
+        });
+
     var au = $('<audio src="audio/ganador.mp3" autoplay type="audio/mpeg"></audio>');
     $("body").append(au);
     $('#conPuntaje').html("Has recopilado " + puntaje + " puntos")
