@@ -46,8 +46,8 @@
             </div>
 
             <h2 id="game-page-title">SUBIR AVATARES</h2>
-            <a href="#"> <img class="img-fluid" src="./images/BOTONES/GUARDAR.png" id="btnAdmin"></a>
-            <div id="lista_avtars" class="col-sm-12">
+            <a href="#divform"> <img class="img-fluid" src="./images/BOTONES/GUARDAR.png" id="btnNuevoAvatar"></a>
+            <div id="listaAvatar" class="col-sm-12">
                 <!--<div>
                     <a href="#"> <img class="img-fluid" src="./images/AVATAR/niñaAv1.png" id="btnAdmin"></a>
                     <a href="#"> <img class="img-fluid" src="./images/BOTONES/EDITAR.png" id="btnAdmin"></a>
@@ -57,8 +57,8 @@
             </div><br>
 
             <h2 id="game-page-title">SUBIR ANIMALES</h2>
-            <a href="#"> <img class="img-fluid" src="./images/BOTONES/GUARDAR.png" id="btnAdmin"></a>
-            <div id="lista_cartas" class="col-sm-12">
+            <a href="#divform"> <img class="img-fluid" src="./images/BOTONES/GUARDAR.png" id="btnNuevaCarta"></a>
+            <div id="listaCarta" class="col-sm-12">
                 <!--<img src="./images/AVATAR/niñoAv1.png" class="img-fluid">
                     <img src="./images/AVATAR/niñoAv2.png" class="img-fluid">
                     <img src="./images/AVATAR/niñoAv3.png" class="img-fluid">-->
@@ -69,17 +69,9 @@
 
     <div class="divNV"><button id="nuevoVideo">+</button></div>
 
-    <div class="divform">
-        <form action="/api/cartas" enctype="multipart/form-data" method="POST">
-            <label for="fname">Nombre:</label>
-            <input type="text" id="fname" name="nombre" placeholder="Nombre de Carta...">
-
-            <label for="lname">Imagen:</label>
-            <input type="file" id="lname" name="url" placeholder="Imagen de Avatar...">
-
-
-            <input type="submit" value="Guardar">
-        </form>
+    <!-- FORMULARIO -->
+    <div class="divform" id="divform">
+        
     </div>
 
     <!-- footer Start -->
