@@ -40,4 +40,6 @@ module.exports = (app) => {
   app.delete('/api/carta/:cartaId', cartaController.destroy);
   app.delete('/api/user/:userId', userController.destroy);
 
+  
+
 };
