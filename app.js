@@ -5,6 +5,7 @@ var gameRouter = require('./server/routes/game');
 var createError = require('http-errors');
 var path = require('path');
 var formidable = require('express-form-data');
+const methodOverride = require('method-override');
 
 // Set up the express app
 const app = express();
@@ -18,6 +19,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(formidable.parse({ keepExtensions: true, uploadDir:"server/public/images/ANIMALITOS" }));
 
+app.use(methodOverride('_method'));
 // Require our routes into the application.
 require('./server/routes')(app);
 

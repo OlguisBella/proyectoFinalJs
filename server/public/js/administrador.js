@@ -1,14 +1,3 @@
-/*
-$("button").click(function(){
-  $.getJSON("demo_ajax_json.js", function(result){
-    $.each(result, function(i, field){
-      $("div").append(field + " ");
-    });
-  });
-});
-*/
-var nombreActual = "";
-var idActual = "";
 $(document).ready(function () {
     var data = {
         "nombre": "conejo",
@@ -17,12 +6,12 @@ $(document).ready(function () {
 
     //NUEVO AVATAR
     $("#btnNuevoAvatar").click(function () {
-        contruirForm("avatar");
+        contruirForm("avatar", "nuevo", "");
     });
 
     //NUEVA CARTA
     $("#btnNuevaCarta").click(function () {
-        contruirForm("carta");
+        contruirForm("carta", "nuevo", "");
     });
 
     $.ajax({
@@ -58,23 +47,37 @@ $(document).ready(function () {
     });
 });
 
-function contruirForm(tipo) {
+//Crea Formulario para guardar y editar avatar y carta
+function contruirForm(tipo, accion, id) {
     var url_peticion = "";
     var nombre_tipo = "";
+    var titulo;
     switch (tipo) {
         case "avatar":
-            url_peticion = "/api/avatars";
             nombre_tipo = "Avatar";
+            titulo = "Crear Nuevo Avatar";
+            if(accion == "nuevo") url_peticion = "/api/avatars";
+            if(accion == "editar") {
+                url_peticion = "/api/avatar/" + id + "?_method=PUT";
+                titulo = "Editar Nuevo Avatar";
+            }
             break;
         case "carta":
-            url_peticion = "/api/cartas";
             nombre_tipo = "Carta";
+            titulo = "Crear Nueva Carta";
+            if(accion == "nuevo") url_peticion = "/api/cartas";
+            if(accion == "editar") {
+                url_peticion = "/api/carta/" + id + "?_method=PUT";
+                titulo = "Editar Nueva Carta";
+            }
             break;
         default:
             // code block
     }
 
     $("#divform").empty();
+
+    $("#divform").append("<h2>" + titulo + "</h2>");
 
     var form = $("<form></form>")
         .attr("action", url_peticion)
@@ -111,6 +114,7 @@ function contruirForm(tipo) {
     $('#divform').append(form);
 }
 
+//Crea la lista de avatar y cartas al cargar json, al inicio
 function construirLista(data, tipo) {
     var url_peticion = "";
     var nombre_tipo = "";
@@ -144,7 +148,8 @@ function construirLista(data, tipo) {
 
         var imgEdit = $("<img></img>")
             .attr("src", "./images/BOTONES/EDITAR.png")
-            .attr("id", "btnEdit" + nombre_tipo)
+            .attr("id", "btnEdit" + nombre_tipo + element.nombre + element.id)
+            .attr("data-value", element.id)
             .addClass("img-fluid");
         var aEdit = $("<a></a>")
             .attr("href", "#divform");
@@ -173,9 +178,16 @@ function construirLista(data, tipo) {
                 url: url_peticion + id,
                 type: 'DELETE',
                 success: function(result) {
-                    console.log(id);
+                    location.reload();
                 }
             });
+            location.reload();
+        });   
+
+        //EDITAR
+        $("#btnEdit" + nombre_tipo + element.nombre + element.id).on('click', function (e) {
+            var id = $(this).data("value");
+            contruirForm(tipo, "editar", id)
         });   
 
     });

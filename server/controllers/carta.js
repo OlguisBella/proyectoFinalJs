@@ -16,7 +16,7 @@ module.exports = {
       })
       .then(carta => {
         var name = req.files.url.originalFilename.split(".");
-        var path  = "server/public/images/ANIMALITOS/" + name[0] + "-id" + carta.dataValues.id + "." + name[1];
+        var path = "server/public/images/ANIMALITOS/" + name[0] + "-id" + carta.dataValues.id + "." + name[1];
         fs.rename(req.files.url.path, path);
         path = path.split("public/")[1];
         path = "./" + path;
@@ -27,7 +27,8 @@ module.exports = {
             nombre: req.body.nombre || carta.nombre,
             url: path || carta.url,
           })
-          .then(() => res.status(201).send(carta))  // Send back the updated carta.
+          //.then(() => res.status(201).send(carta)) // Send back the updated carta.
+          .then(() => res.redirect('back')) // Send back the updated carta.
           .catch((error) => res.status(400).send(error));
       })
       .catch(error => res.status(400).send(error));
@@ -60,12 +61,19 @@ module.exports = {
             message: 'Carta No Encontrada',
           });
         }
+        var name = req.files.url.originalFilename.split(".");
+        var path = "server/public/images/ANIMALITOS/" + name[0] + "-id" + carta.dataValues.id + "." + name[1];
+        fs.rename(req.files.url.path, path);
+        path = path.split("public/")[1];
+        path = "./" + path;
+        console.log(path);
+        //return res.status(201).send(carta);
         return carta
           .update({
             nombre: req.body.nombre || carta.nombre,
-            url: req.body.url || carta.url,
+            url: path || carta.url,
           })
-          .then(() => res.status(200).send(carta))  // Send back the updated carta.
+          .then(() => res.redirect('back')) // Send back the updated carta.
           .catch((error) => res.status(400).send(error));
       })
       .catch((error) => res.status(400).send(error));
@@ -81,7 +89,7 @@ module.exports = {
         }
         return carta
           .destroy()
-          .then(() => res.status(204).send())
+          .then(() => res.redirect('back'))
           .catch(error => res.status(400).send(error));
       })
       .catch(error => res.status(400).send(error));
