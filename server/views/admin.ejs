@@ -47,69 +47,40 @@
 
             <h2 id="game-page-title">SUBIR AVATARES</h2>
             <a href="#"> <img class="img-fluid" src="./images/BOTONES/GUARDAR.png" id="btnAdmin"></a>
-            <div class="col-sm-12">
-                <div>
+            <div id="lista_avtars" class="col-sm-12">
+                <!--<div>
                     <a href="#"> <img class="img-fluid" src="./images/AVATAR/niñaAv1.png" id="btnAdmin"></a>
                     <a href="#"> <img class="img-fluid" src="./images/BOTONES/EDITAR.png" id="btnAdmin"></a>
                     <a href="#"> <img class="img-fluid" src="./images/BOTONES/ELIMINAR.png" id="btnAdmin"></a>
-                </div>
-                <div>
-                    <a href="#"> <img class="img-fluid" src="./images/AVATAR/niñaAv1.png" id="btnAdmin"></a>
-                    <a href="#"> <img class="img-fluid" src="./images/BOTONES/EDITAR.png" id="btnAdmin"></a>
-                    <a href="#"> <img class="img-fluid" src="./images/BOTONES/ELIMINAR.png" id="btnAdmin"></a>
-                </div>
-                <div>
-                    <a href="#"> <img class="img-fluid" src="./images/AVATAR/niñaAv1.png" id="btnAdmin"></a>
-                    <a href="#"> <img class="img-fluid" src="./images/BOTONES/EDITAR.png" id="btnAdmin"></a>
-                    <a href="#"> <img class="img-fluid" src="./images/BOTONES/ELIMINAR.png" id="btnAdmin"></a>
-                </div>
-                <div>
-                    <a href="#"> <img class="img-fluid" src="./images/AVATAR/niñoAv1.png" id="btnAdmin"></a>
-                    <a href="#"> <img class="img-fluid" src="./images/BOTONES/EDITAR.png" id="btnAdmin"></a>
-                    <a href="#"> <img class="img-fluid" src="./images/BOTONES/ELIMINAR.png" id="btnAdmin"></a>
-                </div>
-                <div>
-                    <a href="#"> <img class="img-fluid" src="./images/AVATAR/niñoAv2.png" id="btnAdmin"></a>
-                    <a href="#"> <img class="img-fluid" src="./images/BOTONES/EDITAR.png" id="btnAdmin"></a>
-                    <a href="#"> <img class="img-fluid" src="./images/BOTONES/ELIMINAR.png" id="btnAdmin"></a>
-                </div>
-                <div>
-                    <a href="#"> <img class="img-fluid" src="./images/AVATAR/niñoAv3.png" id="btnAdmin"></a>
-                    <a href="#"> <img class="img-fluid" src="./images/BOTONES/EDITAR.png" id="btnAdmin"></a>
-                    <a href="#"> <img class="img-fluid" src="./images/BOTONES/ELIMINAR.png" id="btnAdmin"></a>
-                </div>
-                <!--<img src="./images/AVATAR/niñoAv1.png" class="img-fluid">
-                <img src="./images/AVATAR/niñoAv2.png" class="img-fluid">
-                <img src="./images/AVATAR/niñoAv3.png" class="img-fluid">-->
+                </div>-->
 
             </div><br>
 
             <h2 id="game-page-title">SUBIR ANIMALES</h2>
-            <div class="row">
-                <div class="col-md-12 col-sm-12">
-                    <img class="img-fluid animalDom" src="./images/ANIMALITOS/cerdito.png">
-                    <img class="img-fluid animalDom" src="./images/ANIMALITOS/conejo.png">
-                    <img class="img-fluid animalDom" src="./images/ANIMALITOS/gallito.png">
-                    <img class="img-fluid animalDom" src="./images/ANIMALITOS/gatito.png">
-                    <img class="img-fluid animalDom" src="./images/ANIMALITOS/perrito.png">
-                    <img class="img-fluid animalDom" src="./images/ANIMALITOS/pollito.png">
-                </div>
+            <a href="#"> <img class="img-fluid" src="./images/BOTONES/GUARDAR.png" id="btnAdmin"></a>
+            <div id="lista_cartas" class="col-sm-12">
+                <!--<img src="./images/AVATAR/niñoAv1.png" class="img-fluid">
+                    <img src="./images/AVATAR/niñoAv2.png" class="img-fluid">
+                    <img src="./images/AVATAR/niñoAv3.png" class="img-fluid">-->
+
             </div><br>
         </center>
     </section>
 
     <div class="divNV"><button id="nuevoVideo">+</button></div>
 
+    <div class="divform">
+        <form action="/api/cartas" enctype="multipart/form-data" method="POST">
+            <label for="fname">Nombre:</label>
+            <input type="text" id="fname" name="nombre" placeholder="Nombre de Carta...">
 
-    <form action="/api/cartas" enctype="multipart/form-data" method="POST">
-        Nombre:<br>
-        <input type="text" name="nombre" value="Mickey">
-        <br>
-        url:<br>
-        <input type="file" name="url" value="Mouse">
-        <br><br>
-        <input type="submit" value="Guardar">
-    </form>
+            <label for="lname">Imagen:</label>
+            <input type="file" id="lname" name="url" placeholder="Imagen de Avatar...">
+
+
+            <input type="submit" value="Guardar">
+        </form>
+    </div>
 
     <!-- footer Start -->
     <footer>
