@@ -133,19 +133,6 @@ function aparecerPopup() {
 function aparecerPopupWinner() {
     //Guardar puntaje
     var dataJugador = {puntaje: puntaje, avatarId: avatars[idAvatar].id};
-    /*$.ajax({
-        url: '/api/jugadores',
-        method: 'post',
-        data: {
-            puntaje: puntaje,
-            avatarId: idAvatar
-        },
-        dataType: 'json',
-        contentType: 'application/json',
-        success: function (data) {
-            console.log(data);
-        },
-    });*/
 
     $.post('/api/jugadores', dataJugador,
         function (data, status) {
@@ -173,7 +160,9 @@ function aparecerPopupWinner() {
         }
     });
 
-
+    animalitos.sort(function (a, b) {
+        return 0.5 - Math.random()
+    });
 }
 
 

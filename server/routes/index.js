@@ -1,14 +1,50 @@
+const express = require('express');
 const avatarController = require('../controllers').avatar;
 const jugadorController = require('../controllers').jugador;
 const cartaController = require('../controllers').carta;
 const userController = require('../controllers').user;
+const ProtectedRoutes = express.Router();
+const jwt    = require('jsonwebtoken');
+
 
 module.exports = (app) => {
-  app.get('/api', (req, res) => res.status(200).send({
-    message: 'Welcome to the API!',
-  }));
+  //set secret
+  ProtectedRoutes.use((req, res, next) => {
+    // check header for the token
+    var token = req.headers['access-token'];
+    console.log("Mi token: " +token);
+    // decode token
+    if (token) {
+      // verifies secret and checks if the token is expired
+      jwt.verify(token, app.get('Secret'), (err, decoded) => {
+        if (err) {
+          return res.json({
+            message: 'invalid token'
+          });
+        } else {
+          // if everything is good, save to request for use in other routes
+          req.decoded = decoded;
+          next();
+        }
+      });
+    } else {
+      // if there is no token  
+      res.send({
+        message: 'No token provided.'
+      });
+    }
+  });
+
+  //Autentication
+  app.use('/apis', ProtectedRoutes);
+  app.post('/auth', userController.auth);
+
+  //app.get('/api', (req, res) => res.status(200).send({
+  //  message: 'Welcome to the API!',
+  //}));
 
   //POST create
+  //ProtectedRoutes.post('/avatars', avatarController.create);
   app.post('/api/avatars', avatarController.create);
   app.post('/api/jugadores', jugadorController.create);
   app.post('/api/cartas', cartaController.create);
@@ -39,7 +75,5 @@ module.exports = (app) => {
   app.delete('/api/jugador/:jugadorId', jugadorController.destroy);
   app.delete('/api/carta/:cartaId', cartaController.destroy);
   app.delete('/api/user/:userId', userController.destroy);
-
-  
 
 };

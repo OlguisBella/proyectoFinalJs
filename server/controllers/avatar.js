@@ -1,6 +1,5 @@
 const Avatar = require('../models').Avatar;
 const Jugador = require('../models').Jugador;
-let formidable = require('formidable');
 var fs = require('fs');
 
 module.exports = {
