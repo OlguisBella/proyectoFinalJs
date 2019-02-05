@@ -53,6 +53,7 @@ module.exports = (app) => {
   //GET list
   app.get('/api/avatars', avatarController.list);
   app.get('/api/jugadores', jugadorController.list);
+  app.get('/api/jugadoresTop', jugadorController.listTop);
   app.get('/api/cartas', cartaController.list);
   app.get('/api/users', userController.list);
 

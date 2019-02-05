@@ -9,7 +9,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       puntaje: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
         allowNull: false
       },
       createdAt: {

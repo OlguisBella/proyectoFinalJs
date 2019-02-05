@@ -32,7 +32,7 @@ module.exports = (app, passport) => {
         })
     );
 
-	//profile view
+	//admin view
 	app.get('/admin', isLoggedIn, (req, res) => {
 		res.render('admin', {
 			user: req.user

@@ -1,3 +1,6 @@
+const User = require('./server/models').User;
+const Carta = require('./server/models').Carta;
+const Avatar = require('./server/models').Avatar;
 const express = require('express');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
@@ -8,17 +11,81 @@ var formidable = require('express-form-data');
 const methodOverride = require('method-override');
 const config = require('./server/config/config-token');
 
-
-const mongoose = require('mongoose');
 const passport = require('passport');
 const flash = require('connect-flash');
 const cookieParser = require('cookie-parser');
+
+var db = require('./server/models');
 const session = require('express-session');
+var http = require('http');
 
 // Set up the express app
 const app = express();
 
-const User = require('./server/models').User;
+
+//Crea user, avatars y cartas por defecto
+var cartas = [], avatars = [];
+avatars.push({nombre:"NiñaAv1", url:"./images/AVATAR/niñaAv1.png"});
+avatars.push({nombre:"NiñaAv2", url:"./images/AVATAR/niñaAv2.png"});
+avatars.push({nombre:"NiñaAv3", url:"./images/AVATAR/niñaAv3.png"});
+avatars.push({nombre:"NiñoAv1", url:"./images/AVATAR/niñoAv1.png"});
+avatars.push({nombre:"NiñoAv2", url:"./images/AVATAR/niñoAv2.png"});
+avatars.push({nombre:"NiñoAv3", url:"./images/AVATAR/niñoAv3.png"});
+cartas.push({nombre:"Cerdito", url:"./images/ANIMALITOS/cerdito.png",score:10});
+cartas.push({nombre:"Conejo", url:"./images/ANIMALITOS/conejo.png",score:20});
+cartas.push({nombre:"Gallito", url:"./images/ANIMALITOS/gallito.png",score:30});
+cartas.push({nombre:"Gatito", url:"./images/ANIMALITOS/gatito.png",score:40});
+cartas.push({nombre:"Patito", url:"./images/ANIMALITOS/patito.png",score:50});
+cartas.push({nombre:"Perrito", url:"./images/ANIMALITOS/perrito.png",score:60});
+User.findOne({ where: { username: "admin" } })
+  .then(user => {
+    if (user) { console.log("Admin ya creado"); } 
+    else {
+      User.create({nombre: "admin",username: "admin",password: "admin",})
+        .then(user => {
+          return user
+            .update({nombre: user.nombre,username: user.username,password: user.generateHash("admin"),})
+            .then(() => {console.log("Nuevo admin creado")})
+            .catch((error) => {console.log(error);});
+        })
+        .catch(error => {console.log(error)});
+    }
+  });
+cartas.forEach(element => {
+  Carta.findOne({ where: { nombre: element.nombre } })
+    .then(carta => {
+      if (carta) { console.log("Carta ya creada"); } 
+      else {
+        Carta.create({nombre: element.nombre,url: element.url,score: element.score})
+          .then(() => {console.log("Nueva carta creada")})
+          .catch(error => {console.log(error)});
+      }
+    });
+});
+avatars.forEach(element => {
+  Avatar.findOne({ where: { nombre: element.nombre } })
+    .then(avatar => {
+      if (avatar) { console.log("Avatar ya creado"); } 
+      else {
+        Avatar.create({nombre: element.nombre,url: element.url,})
+          .then(() => {console.log("Nuevo avatar creado")})
+          .catch(error => {console.log(error)});
+      }
+    });
+});
+//Fin de creacion de datos por defecto
+
+
+app.listen(process.env.PORT || 3000, function () {
+  console.log('Your node js server is running');
+});
+/*
+db.sequelize.sync().then(function () {
+  http.createServer(app).listen(app.get('port'), function () {
+    console.log('Express server listening on port ' + app.get('port'));
+  });
+});
+*/
 
 
 require('./server/config/passport')(passport);
@@ -112,39 +179,6 @@ app.use(function (err, req, res, next) {
 });
 
 
-//Create user
-User.findOne({
-    where: {
-      username: "admin"
-    }
-  })
-  .then(user => {
-    if (user) {
-      //return done(null, false, req.flash('signupMessage', 'the username is already taken'));
-      console.log("Admin ya creado");
-    } else {
-      User.create({
-          nombre: "admin",
-          username: "admin",
-          password: "admin",
-        })
-        .then(user => {
-          return user
-            .update({
-              nombre: user.nombre,
-              username: user.username,
-              password: user.generateHash("admin"),
-            })
-            .then(() => {console.log("Nuevo admin creado")})
-            .catch((error) => {
-              console.log(error);
-            });
-        })
-        .catch(error => {
-          console.log(error)
-        });
-    }
-  });
 
 
 module.exports = app;

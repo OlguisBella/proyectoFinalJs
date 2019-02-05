@@ -432,14 +432,14 @@ h2 {
 
 #game-page-title {
 margin-top: 0px;
-margin-bottom: 20px;
-margin:2em;
+margin-bottom: 10px;
+margin:1em;
 font-family: 'Muli', sans-serif;
 font-weight:600px;
 text-align: center;
 color: #e67e21;
 letter-spacing: .3px;
-font-size:25px;
+font-size:50px;
 font-family: 'Patrick Hand', bold;
 position: relative;
 top:1em;

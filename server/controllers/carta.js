@@ -13,6 +13,7 @@ module.exports = {
       .create({
         nombre: req.body.nombre,
         url: req.files.url.path,
+        score: req.body.score
       })
       .then(carta => {
         var name = req.files.url.originalFilename.split(".");
@@ -26,6 +27,7 @@ module.exports = {
           .update({
             nombre: req.body.nombre || carta.nombre,
             url: path || carta.url,
+            score: carta.score,
           })
           //.then(() => res.status(201).send(carta)) // Send back the updated carta.
           .then(() => res.redirect('back')) // Send back the updated carta.
@@ -72,6 +74,7 @@ module.exports = {
           .update({
             nombre: req.body.nombre || carta.nombre,
             url: path || carta.url,
+            score: req.body.score || carta.score,
           })
           .then(() => res.redirect('back')) // Send back the updated carta.
           .catch((error) => res.status(400).send(error));

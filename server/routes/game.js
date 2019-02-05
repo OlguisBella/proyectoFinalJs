@@ -1,12 +1,12 @@
 var express = require('express');
 var router = express.Router();
 
-router.get('/', function(req, res, next) {
-  res.render('index', {page:'Home', menuId:''});
+router.get('/welcome', function(req, res, next) {
+  res.render('home', {page:'Home', menuId:''});
 });
 
-router.get('/introduccion', function(req, res, next) {
-  res.render('introduccion', {page:'Introduccion', menuId:'introduccion'});
+router.get('/', function(req, res, next) {
+  res.render('index', {page:'Game', menuId:'game'});
 });
 
 router.get('/puntuaciones', function(req, res, next) {

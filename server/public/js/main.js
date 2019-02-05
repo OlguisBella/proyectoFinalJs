@@ -33,6 +33,9 @@ $(document).ready(function () {
             for (let i = 0; i < 3; i++) ImgSource2.push(animalitos[i].url);
             for (let i = 0; i < 4; i++) ImgSource3.push(animalitos[i].url);
 
+            console.log("animalitos");
+            console.log(animalitos);
+
         }
     });
 
@@ -97,8 +100,7 @@ $(document).ready(function () {
 
 function construirAvatars() {
     avatars.forEach(element => {
-        var div = $("<div></div>")
-            .attr("class", "col-md-12 col-sm-12");
+        var div = $("<div></div>");
         var img = $("<img></img>")
             .attr("src", element.url)
             .attr("class", "img-responsive avatar");
@@ -241,7 +243,14 @@ function OpenCard() {
                     $("body").append(au);
                 }, 400);
             } else {
-                puntaje += 10;
+                var result = $.grep(animalitos, function(e){
+                    if(e.url === CurrentOpened)
+                        return e;
+                    return 0; 
+                });
+                //animalitos.find(x => x.url === CurrentOpened).foo;
+                puntaje += result[0].score;
+                console.log(puntaje);
                 $("#" + id + " img").parent().css("visibility", "show");
                 $("#" + BoxOpened + " img").parent().css("visibility", "show");
                 ImgFound++;
@@ -301,6 +310,9 @@ $(function () {
     for (var y = 0; y < 2; y++) {
         var contador = 0;
         $.each(ImgSource, function (i, val) {
+            var p = $("<p></p>")
+                .hide()
+                .text(i);
             $(Source).append("<div class='col-sm-6' id=card" + y + i + "><img class='CorrSide' src=" + val + " />");
             contador++;
         });

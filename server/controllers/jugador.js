@@ -1,5 +1,6 @@
 const Jugador = require('../models').Jugador;
 const Avatar = require('../models').Avatar;
+const sequelize = require('sequelize');
 
 module.exports = {
   create(req, res) {
@@ -73,6 +74,24 @@ module.exports = {
           .then(() => res.status(204).send())
           .catch(error => res.status(400).send(error));
       })
+      .catch(error => res.status(400).send(error));
+  },
+  listTop(req, res) {
+    return Jugador
+      .findAll({
+        order: [
+          // Will escape title and validate DESC against a list of valid direction parameters
+          ['puntaje', 'DESC'],
+          // Will order by max(age) DESC
+          //[sequelize.fn('max', sequelize.col('puntaje')), 'DESC'],
+        ],
+        limit: 10,
+        //order: sequelize.literal('max(puntaje) DESC'),
+        include: [
+          {model: Avatar,}
+        ],
+      })
+      .then(jugador => res.status(200).send(jugador))
       .catch(error => res.status(400).send(error));
   },
 };

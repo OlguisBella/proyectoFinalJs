@@ -18,22 +18,24 @@
 
 <body id="imgFondo">
 
-    <header>
-        <div>
-            <div class="row">
-                <div class="col-md-12 col-sm-12">
-                    <center>
-                        <a href="/">
-                            <img class="img-fluid" id="logo" src="./images/BOTONES/logo.png" alt="Logo"> </a>
-                </div>
+    <header><!-- Cabecera del sitio: Menú del juego-->
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+              <div class="navbar-header">
+                 <a href="/"><img class="img-fluid" id="logo" src="images/BOTONES/logo.png" alt="Logo"> </a>
+              </div>
+              <ul class="nav navbar-nav">
+                <li><a href="signup"> Signup </a></li>
+                <li><a href="logout"><img id="setting" src="images/BOTONES/no.png" alt="setting"></li></a>
+              </ul>
             </div>
-        </div>
+          </nav>
     </header>
 
     <!-- section Start -->
     <section id="seccionAdminAvatar">
         <center>
-            <h2 id="game-page-title">ARCHIVOS JSON</h2>
+            <!--<h2 id="game-page-title">ARCHIVOS JSON</h2>
 
             <div class="row justify-content-center">
 
@@ -44,7 +46,7 @@
                 </div>
 
             </div>
-
+        -->
             <h2 id="game-page-title">SUBIR AVATARES</h2>
             <a href="#divform"> <img class="img-fluid" src="./images/BOTONES/GUARDAR.png" id="btnNuevoAvatar"></a>
             <div id="listaAvatar" class="col-sm-12">
