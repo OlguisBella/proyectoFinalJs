@@ -37,6 +37,10 @@ cartas.push({nombre:"Gallito", url:"./images/ANIMALITOS/gallito.png",score:30});
 cartas.push({nombre:"Gatito", url:"./images/ANIMALITOS/gatito.png",score:40});
 cartas.push({nombre:"Patito", url:"./images/ANIMALITOS/patito.png",score:50});
 cartas.push({nombre:"Perrito", url:"./images/ANIMALITOS/perrito.png",score:60});
+cartas.push({nombre:"Oveja", url:"./images/ANIMALITOS/oveja.png",score:70});
+cartas.push({nombre:"Vaca", url:"./images/ANIMALITOS/vaca.png",score:80});
+cartas.push({nombre:"Tortuga", url:"./images/ANIMALITOS/tortuga.png",score:90});
+cartas.push({nombre:"Pez", url:"./images/ANIMALITOS/pez.png",score:100});
 User.findOne({ where: { username: "admin" } })
   .then(user => {
     if (user) { console.log("Admin ya creado"); } 
