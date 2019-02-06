@@ -26,14 +26,12 @@ $(document).ready(function () {
         dataType: 'json',
         success: function (data) {
             animalitos = data;
-            animalitos.sort(function (a, b) {
-                return 0.5 - Math.random()
-            });
+            animalitos = shuffleArray(data);
             for (let i = 0; i < 2; i++) ImgSource.push(animalitos[i].url);
             for (let i = 0; i < 3; i++) ImgSource2.push(animalitos[i].url);
             for (let i = 0; i < 4; i++) ImgSource3.push(animalitos[i].url);
 
-            console.log("animalitos");
+            console.log("animalitos random");
             console.log(animalitos);
 
         }
@@ -97,6 +95,25 @@ $(document).ready(function () {
 
 
 });
+
+function shuffleArray(array) {
+  var currentIndex = array.length, temporaryValue, randomIndex;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
+}
 
 function construirAvatars() {
     avatars.forEach(element => {
