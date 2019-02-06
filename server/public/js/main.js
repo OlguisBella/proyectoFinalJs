@@ -102,8 +102,8 @@ function construirAvatars() {
     avatars.forEach(element => {
         var div = $("<div></div>");
         var img = $("<img></img>")
-            .attr("src", element.url)
-            .attr("class", "img-responsive avatar");
+            .attr("src", element.url)     
+            .attr("class", "ml-4 col-md-12 img-responsive avatar");
         var a = $("<a></a>")
             .attr("href", "#");
 
