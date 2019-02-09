@@ -10,6 +10,7 @@ var ImgSource2 = [];
 var ImgSource3 = [];
 var avatars = [];
 var idAvatar;
+var idActual=0;
 
 
 $(document).ready(function () {
@@ -52,7 +53,8 @@ $(document).ready(function () {
             construirAvatars();
         }
     });
-
+   
+    
     var au = $('<audio id="audi" src="audio/intro.mp3" autoplay type="audio/mpeg" loop="true"></audio>');
     $("body").append(au);
     $("#btnIniciar").click(function () {
@@ -60,11 +62,17 @@ $(document).ready(function () {
         $("#seccionIntro").fadeOut();
         $("#seccionAvatar").fadeIn();
     });
+    
+    //Elección del Avatar
 
     $(".avatar").each(function (index) {
 
         $(this).on("click", function () {
-            idAvatar = index;
+            
+            idAvatar=index;
+            
+            createJugador();
+            
             $("#imgN1").fadeIn();
 
 
@@ -146,18 +154,12 @@ function aparecerPopup() {
         }
     });
 
-
 }
 
 function aparecerPopupWinner() {
-    //Guardar puntaje
-    var dataJugador = {puntaje: puntaje, avatarId: avatars[idAvatar].id};
-
-    $.post('/api/jugadores', dataJugador,
-        function (data, status) {
-            console.log("Data: " + data + "\nStatus: " + status);
-        });
-
+    
+    updateJugador(); 
+  
     var au = $('<audio src="audio/ganador.mp3" autoplay type="audio/mpeg"></audio>');
     $("body").append(au);
     $('#conPuntaje').html("Has recopilado " + puntaje + " puntos")
@@ -167,7 +169,8 @@ function aparecerPopupWinner() {
         mpopup.hide(); //Se esconde el pop up
         location.reload();
 
-    });
+    });     
+                  
 
     $(window).on('click', function (e) { //Al dar click fuera de la pantalla, se escondera el pop up
         if (e.target == mpopup[0]) { //Aqui se valida que se este dando click fuera del pop up para cerrar el pop up
@@ -184,6 +187,35 @@ function aparecerPopupWinner() {
     });
 }
 
+
+  //funcion crea el puntaje del jugador
+    
+    function createJugador() {
+    //Guardar puntaje
+    var dataJugador = {puntaje:0, avatarId: avatars[idAvatar].id};
+
+    $.post('/api/jugadores/', dataJugador,
+        function (data, status) {   
+         idActual = data.id;
+         console.log("Data: " + idActual + "\nStatus: " + status);
+        });     
+    }
+            
+     //funcion actualiza el puntaje del jugador
+    
+    function updateJugador() {
+    var dataJugador = {puntaje: puntaje, avatarId: avatars[idAvatar].id};        
+     $.ajax({  
+      type: 'PUT',
+      url: '/api/jugador/' + idActual,
+      data: dataJugador,
+      success: function(response){
+          console.log(response);
+      }
+         
+     });
+    
+    }
 
 var BoxOpened = "";
 var ImgOpened = "";
@@ -291,9 +323,9 @@ function OpenCard() {
                 $("body").append(au);
                 setTimeout(function () {
                     crearSecLvl();
-
-
                 }, 4000);
+                
+                
 
                 ImgFound = 0;
                 $("#boxcard div").css("width", "160px");
@@ -344,6 +376,9 @@ function crearSecLvl() {
     ImgOpened = "";
     ImgFound = 0;
     Counter = 0;
+    
+    updateJugador();
+    
     $("#boxcard").empty();
     $(function () {
         for (var y = 0; y < 2; y++) {
@@ -369,6 +404,9 @@ function crearTerLvl() {
     ImgOpened = "";
     ImgFound = 0;
     Counter = 0;
+    
+    updateJugador()
+    
     $("#boxcard").empty();
     $(function () {
         for (var y = 0; y < 2; y++) {

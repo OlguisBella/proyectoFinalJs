@@ -19,5 +19,4 @@
     "database": "de1f0ogcgcrtqb",
     "host": "ec2-54-243-228-140.compute-1.amazonaws.com",
     "dialect": "postgres"
-  }
-}
+  }}
