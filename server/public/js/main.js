@@ -268,6 +268,7 @@ function OpenCard() {
     var id = $(this).attr("id");
     var au = $('<audio src="audio/cartas.mp3" autoplay type="audio/mpeg"></audio>');
     $("body").append(au);
+    
 
     if ($("#" + id + " img").is(":hidden")) {
         $(Source + " div").unbind("click", OpenCard);
@@ -279,7 +280,10 @@ function OpenCard() {
             ImgOpened = $("#" + id + " img").attr("src");
             setTimeout(function () {
                 $(Source + " div").bind("click", OpenCard)
-            }, 300);
+               
+                
+            }, 
+            300);
         } else {
             CurrentOpened = $("#" + id + " img").attr("src");
             if (ImgOpened != CurrentOpened) {
@@ -297,6 +301,7 @@ function OpenCard() {
                         return e;
                     return 0; 
                     
+                    
                 });
                 //animalitos.find(x => x.url === CurrentOpened).foo;
                 puntaje += result[0].score;
@@ -306,9 +311,9 @@ function OpenCard() {
                 ImgFound++;
                 BoxOpened = "";
                 ImgOpened = "";
-                //audio de cartas correctas
-                var au = $('<audio src="correcto.mp3" autoplay type="audio/mpeg"></audio>');
-                    $("body").append(au);
+                //audio de cartas iguales
+             var au = $('<audio src="audio/correcto.mp3" autoplay type="audio/mpeg"></audio>');
+             $("body").append(au);
             }
             setTimeout(function () {
                 $(Source + " div").bind("click", OpenCard)
