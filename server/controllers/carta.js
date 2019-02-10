@@ -1,7 +1,14 @@
 const Carta = require('../models').Carta;
 let formidable = require('formidable');
-var fs = require('fs');
-var form = new formidable.IncomingForm();
+const cloudinary = require('cloudinary');
+const config = require('../config/cloudinary').cloudinary;
+
+/*configure our cloudinary*/
+cloudinary.config({
+  cloud_name: config.cloud_name,
+  api_key: config.api_key,
+  api_secret: config.api_secret
+});
 
 module.exports = {
   create(req, res) {
@@ -17,21 +24,26 @@ module.exports = {
       })
       .then(carta => {
         var name = req.files.url.originalFilename.split(".");
-        var path = "server/public/images/ANIMALITOS/" + name[0] + "-id" + carta.dataValues.id + "." + name[1];
-        fs.rename(req.files.url.path, path);
-        path = path.split("public/")[1];
-        path = "./" + path;
-        console.log(path);
-        //return res.status(201).send(carta);
-        return carta
-          .update({
-            nombre: req.body.nombre || carta.nombre,
-            url: path || carta.url,
-            score: carta.score,
-          })
-          //.then(() => res.status(201).send(carta)) // Send back the updated carta.
-          .then(() => res.redirect('back')) // Send back the updated carta.
-          .catch((error) => res.status(400).send(error));
+        var path = name[0] + "-id" + carta.dataValues.id;
+        var url_cloudinary;
+
+        cloudinary.v2.uploader.upload(req.files.url.path, {
+            public_id: path,
+            tags: ['carta', 'proyecto-final']
+          },
+          function (error, result) {
+            url_cloudinary = result.url;
+            console.log(url_cloudinary);
+            console.log(result, error);
+            return carta
+              .update({
+                nombre: req.body.nombre || carta.nombre,
+                url: url_cloudinary || carta.url,
+                score: carta.score,
+              })
+              .then(() => res.redirect('back')) // Send back the updated carta.
+              .catch((error) => res.status(400).send(error));
+          });
       })
       .catch(error => res.status(400).send(error));
   },
@@ -64,20 +76,26 @@ module.exports = {
           });
         }
         var name = req.files.url.originalFilename.split(".");
-        var path = "server/public/images/ANIMALITOS/" + name[0] + "-id" + carta.dataValues.id + "." + name[1];
-        fs.rename(req.files.url.path, path);
-        path = path.split("public/")[1];
-        path = "./" + path;
-        console.log(path);
-        //return res.status(201).send(carta);
-        return carta
-          .update({
-            nombre: req.body.nombre || carta.nombre,
-            url: path || carta.url,
-            score: req.body.score || carta.score,
-          })
-          .then(() => res.redirect('back')) // Send back the updated carta.
-          .catch((error) => res.status(400).send(error));
+        var path = name[0] + "-id" + carta.dataValues.id;
+        var url_cloudinary;
+
+        cloudinary.v2.uploader.upload(req.files.url.path, {
+            public_id: path,
+            tags: ['carta', 'proyecto-final']
+          },
+          function (error, result) {
+            url_cloudinary = result.url;
+            console.log(url_cloudinary);
+            console.log(result, error);
+            return carta
+              .update({
+                nombre: req.body.nombre || carta.nombre,
+                url: url_cloudinary || carta.url,
+                score: carta.score,
+              })
+              .then(() => res.redirect('back')) // Send back the updated carta.
+              .catch((error) => res.status(400).send(error));
+          });
       })
       .catch((error) => res.status(400).send(error));
   },

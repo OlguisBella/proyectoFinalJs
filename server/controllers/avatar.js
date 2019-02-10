@@ -1,7 +1,16 @@
 const Avatar = require('../models').Avatar;
 const Jugador = require('../models').Jugador;
 var fs = require('fs');
+const cloudinary = require('cloudinary');
+const config = require('../config/cloudinary').cloudinary;
 
+/*configure our cloudinary*/
+cloudinary.config({
+  cloud_name: config.cloud_name,
+  api_key: config.api_key,
+  api_secret: config.api_secret
+});
+//cloudinary.uploader.upload("sample.jpg", {"crop":"limit","tags":"samples","width":3000,"height":2000}, function(result) { console.log(result) });
 module.exports = {
   create(req, res) {
     return Avatar
@@ -11,19 +20,26 @@ module.exports = {
       })
       .then(avatar => {
         var name = req.files.url.originalFilename.split(".");
-        var path = "server/public/images/AVATAR/" + name[0] + "-id" + avatar.dataValues.id + "." + name[1];
-        fs.rename(req.files.url.path, path);
-        path = path.split("public/")[1];
-        path = "./" + path;
-        console.log(path);
-        //return res.status(201).send(carta);
-        return avatar
-          .update({
-            nombre: req.body.nombre || avatar.nombre,
-            url: path || avatar.url,
-          })
-          .then(() => res.redirect('back')) // Send back the updated avatar.
-          .catch((error) => res.status(400).send(error));
+        var path = name[0] + "-id" + avatar.dataValues.id;
+        var url_cloudinary;
+
+        cloudinary.v2.uploader.upload(req.files.url.path, {
+            public_id: path,
+            tags: ['avatar', 'proyecto-final']
+          },
+          function (error, result) {
+            url_cloudinary = result.url;
+            console.log(url_cloudinary);
+            console.log(result, error);
+            return avatar
+              .update({
+                nombre: req.body.nombre || avatar.nombre,
+                url: url_cloudinary || avatar.url,
+              })
+              .then(() => res.redirect('back')) // Send back the updated avatar.
+              .catch((error) => res.status(400).send(error));
+          });
+
       })
       .catch(error => res.status(400).send(error));
   },
@@ -71,19 +87,25 @@ module.exports = {
           });
         }
         var name = req.files.url.originalFilename.split(".");
-        var path = "server/public/images/AVATAR/" + name[0] + "-id" + avatar.dataValues.id + "." + name[1];
-        fs.rename(req.files.url.path, path);
-        path = path.split("public/")[1];
-        path = "./" + path;
-        console.log(path);
-        //return res.status(201).send(carta);
-        return avatar
-          .update({
-            nombre: req.body.nombre || avatar.nombre,
-            url: path || avatar.url,
-          })
-          .then(() => res.redirect('back')) // Send back the updated avatar.
-          .catch((error) => res.status(400).send(error));
+        var path = name[0] + "-id" + avatar.dataValues.id;
+        var url_cloudinary;
+
+        cloudinary.v2.uploader.upload(req.files.url.path, {
+            public_id: path,
+            tags: ['avatar', 'proyecto-final']
+          },
+          function (error, result) {
+            url_cloudinary = result.url;
+            console.log(url_cloudinary);
+            console.log(result, error);
+            return avatar
+              .update({
+                nombre: req.body.nombre || avatar.nombre,
+                url: url_cloudinary || avatar.url,
+              })
+              .then(() => res.redirect('back')) // Send back the updated avatar.
+              .catch((error) => res.status(400).send(error));
+          });
       })
       .catch((error) => res.status(400).send(error));
   },
