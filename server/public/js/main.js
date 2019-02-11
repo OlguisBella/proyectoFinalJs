@@ -78,7 +78,7 @@ $(document).ready(function () {
 
             var fullp = $(this).prop('src');
             var filename = fullp.replace(/^.*[\\\/]/, '');
-            var imgCreada = $("<img id='imgTm' class='avatarSeleccionado center-block img-responsive' src='images/AVATAR/" + filename + "' alt='new'>");
+            var imgCreada = $("<img id='imgTm' class='avatarSeleccionado center-block img-responsive' src='" + fullp +"' alt='new'>");
             imgAvatar = imgCreada;
             $("#seccionAvatar").append(imgCreada);
 
